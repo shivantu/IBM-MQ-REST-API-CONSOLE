@@ -186,13 +186,3 @@ https://www.ibm.com/docs/en/ibm-mq/9.2.x?topic=api-getting-started-administrativ
 
 
 
-curl -k https://localhost:9443/ibmmq/rest/v2/admin/action/qmgr/QM1/mqsc -X POST -u mqadmin:mqadmin -H "ibm-mq-rest-csrf-token: value" -H "Content-Type: application/json" --data "{\"type\": \"runCommandJSON\", \"command\": \"display\", \"qualifier\": \"qlocal\", \"name\": \"Q1\"}"
-
-
-
-
-
-https://172.29.5.78::9443/ibmmq/rest/v1/admin/qmgr/MQREST/channel/TEST.SVR?status=currentStatus
-https://172.29.5.78:9443/ibmmq/rest/v1/admin/qmgr/MQREST/queue/TEST1?currentDepth
-
-https://mqserver1:9443/ibmmq/rest/v1/admin/qmgr/MQREST/queue/TEST1?attributes=currentDepth,openInputCount,openOutputCount,lastPutDate,lastGetDate
