@@ -12,5 +12,5 @@ A quick reference to enable and use **IBM MQ Console** & **REST API** with ready
 - ✅ Basic troubleshooting guide  
 
 ---
-
+© 2025 Shivaraj — All Rights Reserved.
 
