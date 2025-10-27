@@ -1,0 +1,683 @@
+{
+	"info": {
+		"_postman_id": "b073ba82-989a-42bb-8713-75f2b1c064f1",
+		"name": "MQ_REST_API",
+		"description": "This Pack is to chck and test the MQ status using mq rest apis",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30003719",
+		"_collection_link": "https://martian-spaceship-205103.postman.co/workspace/2dba1c81-19d9-425e-9034-898c0bd7864a/collection/30003719-b073ba82-989a-42bb-8713-75f2b1c064f1?action=share&source=collection_link&creator=30003719"
+	},
+	"item": [
+		{
+			"name": "GetQmStatus",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "mqadmin",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "mqadmin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://172.29.5.226:9443/ibmmq/rest/v2/admin/qmgr",
+					"protocol": "https",
+					"host": [
+						"172",
+						"29",
+						"5",
+						"226"
+					],
+					"port": "9443",
+					"path": [
+						"ibmmq",
+						"rest",
+						"v2",
+						"admin",
+						"qmgr"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "succesResponse",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://172.29.5.226:9443/ibmmq/rest/v2/admin/qmgr",
+							"protocol": "https",
+							"host": [
+								"172",
+								"29",
+								"5",
+								"226"
+							],
+							"port": "9443",
+							"path": [
+								"ibmmq",
+								"rest",
+								"v2",
+								"admin",
+								"qmgr"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 10 Sep 2025 06:39:05 GMT"
+						},
+						{
+							"key": "Content-Language",
+							"value": "en-US"
+						},
+						{
+							"key": "Content-Length",
+							"value": "376"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"qmgr\": [\n        {\n            \"name\": \"RDQM1\",\n            \"state\": \"stateNotAvailable\"\n        },\n        {\n            \"name\": \"FR1\",\n            \"state\": \"ended\"\n        },\n        {\n            \"name\": \"FR2\",\n            \"state\": \"ended\"\n        },\n        {\n            \"name\": \"PR3\",\n            \"state\": \"ended\"\n        },\n        {\n            \"name\": \"PR4\",\n            \"state\": \"ended\"\n        },\n        {\n            \"name\": \"MQREST\",\n            \"state\": \"ended\"\n        },\n        {\n            \"name\": \"MQREST2\",\n            \"state\": \"ended\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "CreateQueueReq",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "mqadmin",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "mqadmin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "ibm-mq-rest-csrf-token",
+						"value": "value"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": \"runCommandJSON\",\r\n    \"command\": \"define\",\r\n    \"qualifier\": \"qlocal\",\r\n    \"name\": \"Q1\"\r\n}"
+				},
+				"url": {
+					"raw": "https://172.29.5.226:9443/ibmmq/rest/v2/admin/action/qmgr/MQREST/mqsc",
+					"protocol": "https",
+					"host": [
+						"172",
+						"29",
+						"5",
+						"226"
+					],
+					"port": "9443",
+					"path": [
+						"ibmmq",
+						"rest",
+						"v2",
+						"admin",
+						"action",
+						"qmgr",
+						"MQREST",
+						"mqsc"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "errorResponse",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "ibm-mq-rest-csrf-token",
+								"value": "value"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"runCommandJSON\",\r\n    \"command\": \"define\",\r\n    \"qualifier\": \"qlocal\",\r\n    \"name\": \"Q1\"\r\n}"
+						},
+						"url": {
+							"raw": "https://172.29.5.226:9443/ibmmq/rest/v2/admin/action/qmgr/MQREST/mqsc",
+							"protocol": "https",
+							"host": [
+								"172",
+								"29",
+								"5",
+								"226"
+							],
+							"port": "9443",
+							"path": [
+								"ibmmq",
+								"rest",
+								"v2",
+								"admin",
+								"action",
+								"qmgr",
+								"MQREST",
+								"mqsc"
+							]
+						}
+					},
+					"status": "Service Unavailable",
+					"code": 503,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 10 Sep 2025 06:42:52 GMT"
+						},
+						{
+							"key": "Content-Language",
+							"value": "en-US"
+						},
+						{
+							"key": "Content-Length",
+							"value": "607"
+						},
+						{
+							"key": "Connection",
+							"value": "Close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": [\n        {\n            \"msgId\": \"MQWB0055E\",\n            \"action\": \"Rectify the problem, which might require operations to be performed on the queue manager, and resubmit the request.\",\n            \"completionCode\": 2,\n            \"reasonCode\": 2059,\n            \"type\": \"pcf\",\n            \"message\": \"MQWB0055E: An internal error occurred while communicating with the queue manager. The root MQ reason code was 2059 : MQRC_Q_MGR_NOT_AVAILABLE.\",\n            \"explanation\": \"The REST API caught an exception when communicating with the queue manager. This might indicate that there was a problem with the queue manager, or that a parameter that was passed was incorrect.\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "QueueStatus",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "mqadmin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "mqadmin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://172.29.5.78:9443/ibmmq/rest/v1/admin/qmgr/MQREST/queue/TEST1",
+					"protocol": "https",
+					"host": [
+						"172",
+						"29",
+						"5",
+						"78"
+					],
+					"port": "9443",
+					"path": [
+						"ibmmq",
+						"rest",
+						"v1",
+						"admin",
+						"qmgr",
+						"MQREST",
+						"queue",
+						"TEST1"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "SccessREsponse",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://172.29.5.78:9443/ibmmq/rest/v1/admin/qmgr/MQREST/queue/TEST1",
+							"protocol": "https",
+							"host": [
+								"172",
+								"29",
+								"5",
+								"78"
+							],
+							"port": "9443",
+							"path": [
+								"ibmmq",
+								"rest",
+								"v1",
+								"admin",
+								"qmgr",
+								"MQREST",
+								"queue",
+								"TEST1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 23 Sep 2025 05:22:51 GMT"
+						},
+						{
+							"key": "Content-Language",
+							"value": "en-US"
+						},
+						{
+							"key": "Content-Length",
+							"value": "53"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"queue\": [\n        {\n            \"name\": \"TEST1\",\n            \"type\": \"local\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Q_Status",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "mqadmin",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "mqadmin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "ibm-mq-rest-csrf-token",
+						"value": "value"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": \"runCommandJSON\",\r\n    \"command\": \"display\",\r\n    \"qualifier\": \"qlocal\",\r\n    \"name\": \"Q1\"\r\n}"
+				},
+				"url": {
+					"raw": "https://172.29.5.78:9443/ibmmq/rest/v2/admin/action/qmgr/MQREST/mqsc",
+					"protocol": "https",
+					"host": [
+						"172",
+						"29",
+						"5",
+						"78"
+					],
+					"port": "9443",
+					"path": [
+						"ibmmq",
+						"rest",
+						"v2",
+						"admin",
+						"action",
+						"qmgr",
+						"MQREST",
+						"mqsc"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "SuccessResponse",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "ibm-mq-rest-csrf-token",
+								"value": "value"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"runCommandJSON\",\r\n    \"command\": \"display\",\r\n    \"qualifier\": \"qlocal\",\r\n    \"name\": \"Q1\"\r\n}"
+						},
+						"url": {
+							"raw": "https://172.29.5.78:9443/ibmmq/rest/v2/admin/action/qmgr/MQREST/mqsc",
+							"protocol": "https",
+							"host": [
+								"172",
+								"29",
+								"5",
+								"78"
+							],
+							"port": "9443",
+							"path": [
+								"ibmmq",
+								"rest",
+								"v2",
+								"admin",
+								"action",
+								"qmgr",
+								"MQREST",
+								"mqsc"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 23 Sep 2025 05:39:38 GMT"
+						},
+						{
+							"key": "Content-Language",
+							"value": "en-US"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1612"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"commandResponse\": [\n        {\n            \"completionCode\": 0,\n            \"reasonCode\": 0,\n            \"parameters\": {\n                \"cluster\": \"\",\n                \"curdepth\": 0,\n                \"usage\": \"NORMAL\",\n                \"notrigger\": \"YES\",\n                \"trigdpth\": 1,\n                \"clchname\": \"\",\n                \"type\": \"QLOCAL\",\n                \"put\": \"ENABLED\",\n                \"qdploev\": \"DISABLED\",\n                \"defprty\": 0,\n                \"statq\": \"QMGR\",\n                \"initq\": \"\",\n                \"qsvciev\": \"NONE\",\n                \"deftype\": \"PREDEFINED\",\n                \"streamq\": \"\",\n                \"clwluseq\": \"QMGR\",\n                \"msgdlvsq\": \"PRIORITY\",\n                \"imgrcovq\": \"QMGR\",\n                \"trigmpri\": 0,\n                \"bothresh\": 0,\n                \"qdphiev\": \"DISABLED\",\n                \"descr\": \"\",\n                \"distl\": \"NO\",\n                \"maxmsgl\": 4194304,\n                \"maxfsize\": \"DEFAULT\",\n                \"boqname\": \"\",\n                \"acctq\": \"QMGR\",\n                \"clwlrank\": 0,\n                \"propctl\": \"COMPAT\",\n                \"qsvcint\": 999999999,\n                \"trigtype\": \"FIRST\",\n                \"npmclass\": \"NORMAL\",\n                \"maxdepth\": 5000,\n                \"altdate\": \"2025-08-28\",\n                \"hardenbo\": \"YES\",\n                \"opprocs\": 0,\n                \"crtime\": \"10.41.52\",\n                \"trigdata\": \"\",\n                \"alttime\": \"10.41.52\",\n                \"defbind\": \"OPEN\",\n                \"monq\": \"QMGR\",\n                \"get\": \"ENABLED\",\n                \"scope\": \"QMGR\",\n                \"qdpmaxev\": \"ENABLED\",\n                \"share\": \"YES\",\n                \"clusnl\": \"\",\n                \"strmqos\": \"BESTEF\",\n                \"process\": \"\",\n                \"defpresp\": \"SYNC\",\n                \"custom\": \"\",\n                \"clwlprty\": 0,\n                \"defreada\": \"NO\",\n                \"retintvl\": 999999999,\n                \"crdate\": \"2025-08-28\",\n                \"ipprocs\": 0,\n                \"defpsist\": \"NO\",\n                \"qdepthlo\": 20,\n                \"qdepthhi\": 80,\n                \"queue\": \"Q1\",\n                \"defsopt\": \"SHARED\"\n            }\n        }\n    ],\n    \"overallReasonCode\": 0,\n    \"overallCompletionCode\": 0\n}"
+				}
+			]
+		},
+		{
+			"name": "Q_CurDepth",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "mqadmin",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "mqadmin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "ibm-mq-rest-csrf-token",
+						"value": "value"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": \"runCommandJSON\",\r\n    \"command\": \"display\",\r\n    \"qualifier\": \"qlocal\",\r\n    \"name\": \"TEST1\",\r\n    \"responseParameters\": [\r\n        \"descr\",\r\n        \"curdepth\"\r\n        \r\n    ]\r\n}"
+				},
+				"url": {
+					"raw": "https://172.29.5.78:9443/ibmmq/rest/v2/admin/action/qmgr/MQREST/mqsc",
+					"protocol": "https",
+					"host": [
+						"172",
+						"29",
+						"5",
+						"78"
+					],
+					"port": "9443",
+					"path": [
+						"ibmmq",
+						"rest",
+						"v2",
+						"admin",
+						"action",
+						"qmgr",
+						"MQREST",
+						"mqsc"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Q_CurDepth_SuccessResponse",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "ibm-mq-rest-csrf-token",
+								"value": "value"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"runCommandJSON\",\r\n    \"command\": \"display\",\r\n    \"qualifier\": \"qlocal\",\r\n    \"name\": \"TEST1\",\r\n    \"responseParameters\": [\r\n        \"descr\",\r\n        \"curdepth\"\r\n        \r\n    ]\r\n}"
+						},
+						"url": {
+							"raw": "https://172.29.5.78:9443/ibmmq/rest/v2/admin/action/qmgr/MQREST/mqsc",
+							"protocol": "https",
+							"host": [
+								"172",
+								"29",
+								"5",
+								"78"
+							],
+							"port": "9443",
+							"path": [
+								"ibmmq",
+								"rest",
+								"v2",
+								"admin",
+								"action",
+								"qmgr",
+								"MQREST",
+								"mqsc"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 23 Sep 2025 05:59:30 GMT"
+						},
+						{
+							"key": "Content-Language",
+							"value": "en-US"
+						},
+						{
+							"key": "Content-Length",
+							"value": "281"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"commandResponse\": [\n        {\n            \"completionCode\": 0,\n            \"reasonCode\": 0,\n            \"parameters\": {\n                \"descr\": \"locat test queue test1 for mq rest\",\n                \"curdepth\": 0,\n                \"type\": \"QLOCAL\",\n                \"queue\": \"TEST1\"\n            }\n        }\n    ],\n    \"overallReasonCode\": 0,\n    \"overallCompletionCode\": 0\n}"
+				}
+			]
+		},
+		{
+			"name": "ChannelStatus",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ibm-mq-rest-csrf-token",
+						"value": "value"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic bXFhZG1pbjptcWFkbWlu"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"type\": \"runCommandJSON\",\n    \"command\": \"display\",\n    \"qualifier\": \"channel\",\n    \"name\": \"TEST.SVR\"\n}"
+				},
+				"url": {
+					"raw": "https://172.29.5.78:9443/ibmmq/rest/v2/admin/action/qmgr/MQREST/mqsc",
+					"protocol": "https",
+					"host": [
+						"172",
+						"29",
+						"5",
+						"78"
+					],
+					"port": "9443",
+					"path": [
+						"ibmmq",
+						"rest",
+						"v2",
+						"admin",
+						"action",
+						"qmgr",
+						"MQREST",
+						"mqsc"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "ChannelStatusSuccess",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "ibm-mq-rest-csrf-token",
+								"value": "value"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic bXFhZG1pbjptcWFkbWlu"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"runCommandJSON\",\n    \"command\": \"display\",\n    \"qualifier\": \"channel\",\n    \"name\": \"TEST.SVR\"\n}"
+						},
+						"url": {
+							"raw": "https://172.29.5.78:9443/ibmmq/rest/v2/admin/action/qmgr/MQREST/mqsc",
+							"protocol": "https",
+							"host": [
+								"172",
+								"29",
+								"5",
+								"78"
+							],
+							"port": "9443",
+							"path": [
+								"ibmmq",
+								"rest",
+								"v2",
+								"admin",
+								"action",
+								"qmgr",
+								"MQREST",
+								"mqsc"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 23 Sep 2025 06:12:10 GMT"
+						},
+						{
+							"key": "Content-Language",
+							"value": "en-US"
+						},
+						{
+							"key": "Content-Length",
+							"value": "808"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"commandResponse\": [\n        {\n            \"completionCode\": 0,\n            \"reasonCode\": 0,\n            \"parameters\": {\n                \"sendexit\": [],\n                \"sharecnv\": 10,\n                \"channel\": \"TEST.SVR\",\n                \"chltype\": \"SVRCONN\",\n                \"kaint\": \"AUTO\",\n                \"altdate\": \"2025-09-15\",\n                \"trptype\": \"TCP\",\n                \"hbint\": 300,\n                \"mcauser\": \"\",\n                \"senddata\": [],\n                \"monchl\": \"QMGR\",\n                \"alttime\": \"11.16.43\",\n                \"comphdr\": [\n                    \"NONE\"\n                ],\n                \"sslciph\": \"\",\n                \"certlabl\": \"\",\n                \"maxinstc\": 999999999,\n                \"discint\": 0,\n                \"rcvexit\": [],\n                \"scydata\": \"\",\n                \"rcvdata\": [],\n                \"descr\": \"\",\n                \"scyexit\": \"\",\n                \"maxinst\": 999999999,\n                \"maxmsgl\": 4194304,\n                \"compmsg\": [\n                    \"NONE\"\n                ],\n                \"sslpeer\": \"\",\n                \"sslcauth\": \"REQUIRED\"\n            }\n        }\n    ],\n    \"overallReasonCode\": 0,\n    \"overallCompletionCode\": 0\n}"
+				}
+			]
+		}
+	]
+}

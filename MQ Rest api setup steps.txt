@@ -1,0 +1,198 @@
+#verify the MQSeriesWeb component in MQ
+rpm -qa | grep -i MQSeriesWeb
+
+#install MQWebServer rpm
+rpm -ivh MQWebServer*.rpm
+
+#Replace the existing configuration file, mqwebuser.xml with the basic registry sample file that is configured to offer basic security. 
+#Copy the basic_registry.xml file from the MQ_INSTALLATION_PATH/web/mq/samp/configuration directory 
+to the appropriate directory for your system, and rename the file to mqwebuser.xml:
+[AIX][Linux]On AIX and Linux: var/mqm/web/installations/installationName/servers/mqweb
+
+cd MQ_INSTALLATION_PATH/web/mq/samp/configuration
+ls
+cp basic_registry.xml /var/mqm/web/installations/installationName/servers/mqweb
+
+cd var/mqm/web/installations/installationName/servers/mqweb
+ls mv basic_registry.xml mqwebuser.xml
+
+
+#By default, REST API and IBM MQ Console are available only from the same host as the mqweb server. Enable to all 
+connections to the mqweb serve
+setmqweb properties -k httpHost -v "*"
+
+
+#Start the mqweb server that supports the REST API and IBM MQ Console:
+strmqweb
+[shivaraj@fzpsmqvair01 mqweb]$ strmqweb
+
+Starting server mqweb.
+Server mqweb started with process ID 10448.
+[shivaraj@fzpsmqvair01 mqweb]$
+
+
+#To see repotrs
+dspmqweb properties -a
+
+#To see status
+dspmqweb status
+[shivaraj@fzpsmqvair01 mqweb]$ dspmqweb
+MQWB1124I: Server 'mqweb' is running.
+URLS:
+  https://192.168.1.7:9443/ibmmq/rest/
+  https://192.168.1.7:9443/ibmmq/console/
+  
+  https://192.168.1.7:9443/ibmmq/console/   --- this is for MQ console
+  https://192.168.1.7:9443/ibmmq/rest/      --- this is for MQ REST api
+
+#To view all queue manager
+curl -k https://localhost:9443/ibmmq/rest/v2/admin/qmgr -X GET -u mqadmin:mqadmin
+
+Respone:
+[shivaraj@fzpsmqvair01 mqweb]$ curl -k https://localhost:9443/ibmmq/rest/v2/admin/qmgr -X GET -u mqadmin:mqadmin
+{
+    "qmgr": [
+        {
+            "name": "RDQM1",
+            "state": "stateNotAvailable"
+        },
+        {
+            "name": "FR1",
+            "state": "ended"
+        },
+        {
+            "name": "FR2",
+            "state": "ended"
+        },
+        {
+            "name": "PR3",
+            "state": "ended"
+        },
+        {
+            "name": "PR4",
+            "state": "ended"
+        }
+    ]
+}
+[shivaraj@fzpsmqvair01 mqweb]$
+
+#Make a POST request on the mqsc resource to create the local queue:
+curl -k https://localhost:9443/ibmmq/rest/v2/admin/action/qmgr/MQREST/mqsc -X POST -u mqadmin:mqadmin -H "ibm-mq-rest-csrf-token: value" -H "Content-Type: application/json" --data "{\"type\": \"runCommandJSON\", \"command\": \"define\", \"qualifier\": \"qlocal\", \"name\": \"Q1\"}"
+
+Response:
+[shivaraj@fzpsmqvair01 mqweb]$ curl -k https://localhost:9443/ibmmq/rest/v2/admin/action/qmgr/MQREST/mqsc -X POST -u mqadmin:mqadmin -H "ibm-mq-rest-csrf-token: value" -H "Content-Type: application/json" --data "{\"type\": \"runCommandJSON\", \"command\": \"define\", \"qualifier\": \"qlocal\", \"name\": \"Q1\"}"
+{
+  "commandResponse": [{
+    "completionCode": 0,
+    "reasonCode": 0,
+    "message": ["AMQ8006I: IBM MQ queue created."]
+  }],
+  "overallReasonCode": 0,
+  "overallCompletionCode": 0
+
+#Make a POST request on the mqsc resource to view the local queue created in above step
+curl -k https://localhost:9443/ibmmq/rest/v2/admin/action/qmgr/MQREST/mqsc -X POST -u mqadmin:mqadmin -H "ibm-mq-rest-csrf-token: value" -H "Content-Type: application/json" --data "{\"type\": \"runCommandJSON\", \"command\": \"display\", \"qualifier\": \"qlocal\", \"name\": \"Q1\"}"
+
+Response:
+[shivaraj@fzpsmqvair01 mqweb]$ curl -k https://localhost:9443/ibmmq/rest/v2/admin/action/qmgr/MQREST/mqsc -X POST -u mqadmin:qadmin -H "ibm-mq-rest-csrf-token: value" -H "Content-Type: application/json" --data "{\"type\": \"runCommandJSON\", \"command\": \"display\", \"qualifier\": \"qlocal\", \"name\": \"Q1\"}"
+{
+  "commandResponse": [{
+    "completionCode": 0,
+    "reasonCode": 0,
+    "parameters": {
+      "cluster": "",
+      "curdepth": 0,
+      "usage": "NORMAL",
+      "notrigger": "YES",
+      "trigdpth": 1,
+      "clchname": "",
+      "type": "QLOCAL",
+      "put": "ENABLED",
+      "qdploev": "DISABLED",
+      "defprty": 0,
+      "statq": "QMGR",
+      "initq": "",
+      "qsvciev": "NONE",
+      "deftype": "PREDEFINED",
+      "streamq": "",
+      "clwluseq": "QMGR",
+      "msgdlvsq": "PRIORITY",
+      "imgrcovq": "QMGR",
+      "trigmpri": 0,
+      "bothresh": 0,
+      "qdphiev": "DISABLED",
+      "descr": "",
+      "distl": "NO",
+      "maxmsgl": 4194304,
+      "maxfsize": "DEFAULT",
+      "boqname": "",
+      "acctq": "QMGR",
+      "clwlrank": 0,
+      "propctl": "COMPAT",
+      "qsvcint": 999999999,
+      "trigtype": "FIRST",
+      "npmclass": "NORMAL",
+      "maxdepth": 5000,
+      "altdate": "2025-08-28",
+      "hardenbo": "YES",
+      "opprocs": 0,
+      "crtime": "10.41.52",
+      "trigdata": "",
+      "alttime": "10.41.52",
+      "defbind": "OPEN",
+      "monq": "QMGR",
+      "get": "ENABLED",
+      "scope": "QMGR",
+      "qdpmaxev": "ENABLED",
+      "share": "YES",
+      "clusnl": "",
+      "strmqos": "BESTEF",
+      "process": "",
+      "defpresp": "SYNC",
+      "custom": "",
+      "clwlprty": 0,
+      "defreada": "NO",
+      "retintvl": 999999999,
+      "crdate": "2025-08-28",
+      "ipprocs": 0,
+      "defpsist": "NO",
+      "qdepthlo": 20,
+      "qdepthhi": 80,
+      "queue": "Q1",
+      "defsopt": "SHARED"
+    }
+  }],
+  "overallReasonCode": 0,
+  "overallCompletionCode": 0
+
+
+
+rivera@us.ibm.com
+
+
+#to stop the mq web
+[shivaraj@fzpsmqvair01 mqweb]$ endmqweb
+
+Stopping server mqweb.
+Server mqweb stopped.
+[shivaraj@fzpsmqvair01 mqweb]$
+
+
+Reference:
+
+https://www.ibm.com/docs/en/ibm-mq/9.3.x?topic=api-basic-configuration-mqweb-server
+
+https://www.ibm.com/docs/en/ibm-mq/9.2.x?topic=api-getting-started-administrative-rest
+
+
+
+curl -k https://localhost:9443/ibmmq/rest/v2/admin/action/qmgr/QM1/mqsc -X POST -u mqadmin:mqadmin -H "ibm-mq-rest-csrf-token: value" -H "Content-Type: application/json" --data "{\"type\": \"runCommandJSON\", \"command\": \"display\", \"qualifier\": \"qlocal\", \"name\": \"Q1\"}"
+
+
+
+
+
+https://172.29.5.78::9443/ibmmq/rest/v1/admin/qmgr/MQREST/channel/TEST.SVR?status=currentStatus
+https://172.29.5.78:9443/ibmmq/rest/v1/admin/qmgr/MQREST/queue/TEST1?currentDepth
+
+https://mqserver1:9443/ibmmq/rest/v1/admin/qmgr/MQREST/queue/TEST1?attributes=currentDepth,openInputCount,openOutputCount,lastPutDate,lastGetDate
