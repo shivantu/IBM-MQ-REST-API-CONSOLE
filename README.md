@@ -1,11 +1,16 @@
-## **IBM MQ – REST API & Console**
--
-## This repo provides a quick guide to enable and use IBM MQ Console and REST API, along with a Postman collection to test MQ operations easily.
--
+## 🚀 IBM MQ – REST API & Console
 
-##📌 Contains
+A quick reference to enable and use **IBM MQ Console** & **REST API** with ready-to-import **Postman collections** for testing MQ operations.
 
--MQ Console access steps
--MQ REST API enablement
--Postman collection for testing queues and messages
--Basic troubleshooting notes
+---
+
+### 📌 Contents
+
+- ✅ MQ Console access steps  
+- ✅ Enable MQ REST API  
+- ✅ Postman collection for Queue & Messaging tests  
+- ✅ Basic troubleshooting guide  
+
+---
+
+
