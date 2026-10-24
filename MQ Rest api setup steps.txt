@@ -186,3 +186,43 @@ https://www.ibm.com/docs/en/ibm-mq/9.2.x?topic=api-getting-started-administrativ
 
 
 
+=========================================== specific to user access in console==============
+
+
+
+====
+
+setmqaut -m TESTMQ -t queue -n SYSTEM.REST.REPLY.QUEUE -p testweb +dsp +inq +get +put +browse
+setmqaut -m TESTMQ -t queue -n SYSTEM.ADMIN.COMMAND.QUEUE -p testweb +dsp +inq +put
+setmqaut -m TESTMQ -t queue -n SYSTEM.DEFAULT.MODEL.QUEUE -p testweb +dsp +inq +get
+setmqaut -m TESTMQ -t qmgr -p testweb +connect +inq +dsp +crt
+
+setmqaut -m TESTMQ -t qmgr -p testweb +connect +inq +dsp
+setmqaut -m TESTMQ -t queue -n SYSTEM.ADMIN.COMMAND.QUEUE -p testweb +put +dsp
+setmqaut -m TESTMQ -t queue -n SYSTEM.DEFAULT.MODEL.QUEUE -p testweb +get +dsp
+setmqaut -m TESTMQ -t queue -n '**' -p testweb +dsp +browse
+setmqaut -m TESTMQ -t channel -n '**' -p testweb +dsp
+setmqaut -m TESTMQ -t namelist -n '**' -p testweb +dsp
+setmqaut -m TESTMQ -t process -n '**' -p testweb +dsp
+setmqaut -m TESTMQ -t authinfo -n '**' -p testweb +dsp
+setmqaut -m TESTMQ -t clntconn -n '**' -p testweb +dsp
+setmqaut -m TESTMQ -t comminfo -n '**' -p testweb +dsp
+setmqaut -m TESTMQ -t listener -n '**' -p testweb +dsp
+setmqaut -m TESTMQ -t service -n '**' -p testweb +dsp
+setmqaut -m TESTMQ -t topic -n '**' -p testweb +dsp
+setmqaut -m TESTMQ -t rqmname -n '**' -p testweb +dsp
+
+
+echo "DEFINE QLOCAL(WTEST1) REPLACE" | runmqsc TESTMQ
+echo "DEFINE QLOCAL(WTEST2) REPLACE" | runmqsc TESTMQ
+echo "DEFINE QLOCAL(WTEST3) REPLACE" | runmqsc TESTMQ
+echo "DEFINE QLOCAL(WTEST4) REPLACE" | runmqsc TESTMQ
+echo "DEFINE QLOCAL(WTEST5) REPLACE" | runmqsc TESTMQ
+
+
+setmqaut -m TESTMQ -t queue -n WTEST1 -p testweb +put +get +browse +dsp +inq
+setmqaut -m TESTMQ -t queue -n WTEST2 -p testweb +put +get +browse +dsp +inq
+setmqaut -m TESTMQ -t queue -n WTEST3 -p testweb +put +get +browse +dsp +inq
+
+setmqaut -m TESTMQ -t queue -n WTEST4 -p testweb +browse +dsp +inq
+setmqaut -m TESTMQ -t queue -n WTEST5 -p testweb +browse +dsp +inq
